@@ -21,6 +21,17 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/budget", {
   useUnifiedTopology: true,
 });
 
+const connection = mongoose.connection
+
+connection.on("connected", ()=> {
+  console.log("Mongoose has successfully connected!")
+})
+
+
+connection.on("error", ()=> {
+  console.log("Mongoose has failed to connected!")
+})
+
 // routes
 app.use(require("./routes/api.js"));
 
